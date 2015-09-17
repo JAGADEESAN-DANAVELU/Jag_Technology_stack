@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	<context:component-scan base-package="com.jpmc.trade.stock.client"></context:component-scan>	
+	<context:annotation-config></context:annotation-config>
+	
+	<bean id="datesUtils" class=" com.jpmc.trade.stock.client.utils.DatesUtils"></bean>
+	
+	<bean id="TEA-Stock" class="com.jpmc.trade.stock.client.model.Stock">
+		<property name="stockSymbol" value="TEA"></property>
+		<property name="stockType" value="COMMON"></property>
+		<property name="lastDividend" value="8"></property>
+		<property name="fixedDividend" value="0"></property>
+		<property name="parValue" value="100"></property>
+		<property name="tickerPrice" value="10"></property>
+	</bean>
+	<bean id="POP-Stock" class="com.jpmc.trade.stock.client.model.Stock">
+		<property name="stockSymbol" value="POP"></property>
+		<property name="stockType" value="COMMON"></property>
+		<property name="lastDividend" value="8"></property>
+		<property name="fixedDividend" value="0"></property>
+		<property name="parValue" value="100"></property>
+		<property name="tickerPrice" value="15"></property>
+	</bean>
+	<bean id="ALE-Stock" class="com.jpmc.trade.stock.client.model.Stock">
+		<property name="stockSymbol" value="ALE"></property>
+		<property name="stockType" value="COMMON"></property>
+		<property name="lastDividend" value="23"></property>
+		<property name="fixedDividend" value="0"></property>
+		<property name="parValue" value="60"></property>
+		<property name="tickerPrice" value="9"></property>
+	</bean>
+	<bean id="GIN-Stock" class="com.jpmc.trade.stock.client.model.Stock">
+		<property name="stockSymbol" value="GIN"></property>
+		<property name="stockType" value="PREFERRED"></property>
+		<property name="lastDividend" value="8"></property>
+		<property name="fixedDividend" value="0.02"></property>
+		<property name="parValue" value="100"></property>
+		<property name="tickerPrice" value="50"></property>
+	</bean>
+	<bean id="JOE-Stock" class="com.jpmc.trade.stock.client.model.Stock">
+		<property name="stockSymbol" value="JOE"></property>
+		<property name="stockType" value="COMMON"></property>
+		<property name="lastDividend" value="13"></property>
+		<property name="fixedDividend" value="0"></property>
+		<property name="parValue" value="250"></property>
+		<property name="tickerPrice" value="62"></property>
+	</bean>
+		
+	<bean id="tradeStockClientLocalEntityManager" class="com.jpmc.trade.stock.client.local.manager.TradeStockClientLocalEntityManagerImpl">
+		<property name="stocks">
+			<map>
+				<entry key="TEA" value-ref="TEA-Stock"></entry>
+				<entry key="POP" value-ref="POP-Stock"></entry>
+				<entry key="ALE" value-ref="ALE-Stock"></entry>
+				<entry key="GIN" value-ref="GIN-Stock"></entry>
+				<entry key="JOE" value-ref="JOE-Stock"></entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="tradeStockClientService" class="com.jpmc.trade.stock.client.service.TradeStockClientServiceImpl" scope="singleton">
+		<property name="tradeStockClientLocalEntityManager" ref="tradeStockClientLocalEntityManager">
+		</property>
+	</bean>
+
+</beans>
